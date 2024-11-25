@@ -99,5 +99,33 @@ class EmployeeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
     }
 
+    @Test
+    void should_update_employee_when_update_employee() throws Exception {
+        // Given
+        int id = 1;
+        Employee employee = employeeRepository.getById(id);
+        employee.setAge(123123);
+        employee.setSalary(321321321.0);
+        String employeeJson = employeeJacksonTester.write(employee).getJson();
+
+        // When & Then
+        client.perform(MockMvcRequestBuilders.put("/employees/" + employee.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(employeeJson)
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(employeeJson));
+    }
+
+    @Test
+    void should_delete_and_return_204_status_when_delete_employee() throws Exception {
+        // Given
+        int id = 2;
+
+        // When & Then
+        client.perform(MockMvcRequestBuilders.delete("/employees/" + id))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
 }
 
