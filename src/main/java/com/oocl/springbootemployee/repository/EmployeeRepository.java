@@ -10,12 +10,11 @@ import java.util.stream.Collectors;
 
 @Repository
 public class EmployeeRepository {
-    private List<Employee> employeeList = new ArrayList<>();
+    private final List<Employee> employeeList = new ArrayList<>();
+
+    private int sequence = 1;
 
     public EmployeeRepository() {
-        employeeList.add(new Employee(1, "Tom", 20, Gender.FEMALE, 8000.0));
-        employeeList.add(new Employee(2, "Amy", 15, Gender.FEMALE, 7000.0));
-        employeeList.add(new Employee(3, "Ben", 19, Gender.MALE, 5000.0));
     }
 
     public List<Employee> getAll() {
@@ -36,7 +35,8 @@ public class EmployeeRepository {
     }
 
     public Employee createEmployee(Employee employee) {
-        employee.setId(employeeList.size() + 1);
+        employee.setId(sequence);
+        sequence +=1;
         employeeList.add(employee);
         return employee;
     }

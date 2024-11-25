@@ -3,6 +3,7 @@ package com.oocl.springbootemployee.controller;
 import com.oocl.springbootemployee.model.Employee;
 import com.oocl.springbootemployee.model.Gender;
 import com.oocl.springbootemployee.repository.EmployeeRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -34,6 +35,15 @@ class EmployeeControllerTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @BeforeEach
+    void setUp() {
+        employeeRepository.getAll().clear();
+        employeeRepository.createEmployee(new Employee(0, "Tom", 20, Gender.FEMALE, 8000.0));
+        employeeRepository.createEmployee(new Employee(0, "Amy", 15, Gender.FEMALE, 7000.0));
+        employeeRepository.createEmployee(new Employee(0, "Ben", 19, Gender.MALE, 5000.0));
+
+    }
 
     @Test
     void should_return_employees_when_get_all_given_emplpyees() throws Exception {
