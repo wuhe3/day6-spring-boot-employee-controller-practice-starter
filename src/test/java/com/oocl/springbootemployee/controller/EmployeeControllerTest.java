@@ -59,7 +59,7 @@ class EmployeeControllerTest {
         String employeeJson = employeeJacksonTester.write(employee).getJson();
 
         // When & Then
-        client.perform(MockMvcRequestBuilders.get("/employees/" + id))
+        client.perform(MockMvcRequestBuilders.get("/employees/{id}", id))
                 .andExpect(MockMvcResultMatchers.status().isOk())
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id));
                 .andExpect(MockMvcResultMatchers.content().json(employeeJson));
@@ -109,7 +109,7 @@ class EmployeeControllerTest {
         String employeeJson = employeeJacksonTester.write(employee).getJson();
 
         // When & Then
-        client.perform(MockMvcRequestBuilders.put("/employees/" + employee.getId())
+        client.perform(MockMvcRequestBuilders.put("/employees/{id}", employee.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(employeeJson)
                 )
