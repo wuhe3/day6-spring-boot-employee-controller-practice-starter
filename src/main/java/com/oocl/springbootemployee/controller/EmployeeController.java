@@ -49,6 +49,11 @@ public class EmployeeController {
         employeeRepository.deleteEmployee(id);
     }
 
+    @GetMapping(params = {"page", "pageSize"})
+    public List<Employee> getByPage(@RequestParam int page, @RequestParam int pageSize) {
+        return employeeRepository.getByPage(page, pageSize);
+    }
+
 
 
 
