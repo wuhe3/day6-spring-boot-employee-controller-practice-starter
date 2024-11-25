@@ -1,6 +1,7 @@
 package com.oocl.springbootemployee.controller;
 
 import com.oocl.springbootemployee.model.Employee;
+import com.oocl.springbootemployee.model.Gender;
 import com.oocl.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,20 @@ class EmployeeControllerTest {
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id));
                 .andExpect(MockMvcResultMatchers.content().json(employeeJson));
 
+    }
+
+    @Test
+    void should_return_male_when_get_by_male_given_gender_is_male() throws Exception {
+        // Given
+        final List<Employee> employeeList = employeeRepository.getByGender(Gender.MALE);
+        String employeeListJson = employeesListJacksonTester.write(employeeList).getJson();
+
+        // When & Then
+        client.perform(MockMvcRequestBuilders.get("/employees")
+                        .param(("gender"), "MALE")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
     }
 
 }
