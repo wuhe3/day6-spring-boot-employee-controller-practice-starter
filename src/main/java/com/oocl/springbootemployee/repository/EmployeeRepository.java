@@ -35,4 +35,10 @@ public class EmployeeRepository {
                 .collect(Collectors.toList());
     }
 
+    public Employee createEmployee(Employee employee) {
+        employee.setId(employeeList.size() + 1);
+        employeeList.add(employee);
+        return employee;
+    }
+
 }

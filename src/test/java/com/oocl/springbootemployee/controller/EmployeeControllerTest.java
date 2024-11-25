@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -77,6 +78,25 @@ class EmployeeControllerTest {
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
+    }
+
+    @Test
+    void should_return_created_employee_when_create_employee() throws Exception {
+        // Given
+        String employeeBody = "    {\n" +
+                "        \"name\": \"tom\",\n" +
+                "        \"age\": 20,\n" +
+                "        \"gender\": \"FEMALE\",\n" +
+                "        \"salary\": 8000.0\n" +
+                "    }";
+
+        // When & Then
+        client.perform(MockMvcRequestBuilders.post("/employees")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(employeeBody)
+                )
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
     }
 
 }
