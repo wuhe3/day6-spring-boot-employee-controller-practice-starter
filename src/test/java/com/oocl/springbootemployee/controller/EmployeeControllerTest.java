@@ -59,9 +59,8 @@ class EmployeeControllerTest {
         // When & Then
         client.perform(MockMvcRequestBuilders.get("/employees"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(3)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(employeeList.size())))
                 .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
-
     }
 
     @Test
@@ -142,37 +141,37 @@ class EmployeeControllerTest {
         assertThrows(RuntimeException.class, () -> employeeRepository.getById(id));
     }
 
-//    @Test
-//    void should_return_5_employees_when_get_all_given_page_1_and_page_size_5() throws Exception {
-//        // Given
-//        final List<Employee> employeeList = employeeRepository.getByPageAndSize(1, 5);
-//        String employeeListJson = employeesListJacksonTester.write(employeeList).getJson();
-//
-//        // When & Then
-//        client.perform(MockMvcRequestBuilders.get("/employees")
-//                        .param("page", "1")
-//                        .param("pageSize", "5")
-//                )
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(5)))
-//                .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
-//    }
+    @Test
+    void should_return_5_employees_when_get_all_given_page_1_and_page_size_5() throws Exception {
+        // Given
+        final List<Employee> employeeList = employeeRepository.getByPage(1, 5);
+        String employeeListJson = employeesListJacksonTester.write(employeeList).getJson();
 
-//    @Test
-//    void should_return_5_employees_when_get_all_given_page_1_and_page_size_5() throws Exception {
-//        // Given
-//        final List<Employee> employeeList = employeeRepository.getByPageAndSize(2, 2);
-//        String employeeListJson = employeesListJacksonTester.write(employeeList).getJson();
-//
-//        // When & Then
-//        client.perform(MockMvcRequestBuilders.get("/employees")
-//                        .param("page", "2")
-//                        .param("pageSize", "2")
-//                )
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
-//                .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
-//    }
+        // When & Then
+        client.perform(MockMvcRequestBuilders.get("/employees")
+                        .param("page", "1")
+                        .param("pageSize", "5")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(5)))
+                .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
+    }
+
+    @Test
+    void should_return_5_employees_when_get_all_given_page_2_and_page_size_2() throws Exception {
+        // Given
+        final List<Employee> employeeList = employeeRepository.getByPage(2, 2);
+        String employeeListJson = employeesListJacksonTester.write(employeeList).getJson();
+
+        // When & Then
+        client.perform(MockMvcRequestBuilders.get("/employees")
+                        .param("page", "2")
+                        .param("pageSize", "2")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+                .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
+    }
 
 }
 
