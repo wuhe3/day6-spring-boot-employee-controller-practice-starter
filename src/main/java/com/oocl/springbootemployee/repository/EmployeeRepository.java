@@ -62,4 +62,8 @@ public class EmployeeRepository {
     public List<Employee> getByPage(int page, int pageSize) {
         return employeeList.subList((page - 1) * pageSize, page * pageSize);
     }
+
+    public void resetSequence() {
+        sequence = 1;
+    }
 }

@@ -40,13 +40,13 @@ class EmployeeControllerTest {
 
     @BeforeEach
     void setUp() {
-        employeeRepository.getAll().clear();
-        employeeRepository.createEmployee(new Employee(0, "Mary", 20, Gender.FEMALE, 8000.0));
-        employeeRepository.createEmployee(new Employee(0, "Amy", 15, Gender.FEMALE, 7000.0));
-        employeeRepository.createEmployee(new Employee(0, "Micky", 19, Gender.MALE, 5000.0));
-        employeeRepository.createEmployee(new Employee(0, "Tony", 19, Gender.MALE, 4000.0));
-        employeeRepository.createEmployee(new Employee(0, "Jenny", 19, Gender.FEMALE, 5000.0));
-        employeeRepository.createEmployee(new Employee(0, "John", 19, Gender.MALE, 19.0));
+        employeeRepository.resetSequence();
+        employeeRepository.createEmployee(new Employee(1, "Mary", 20, Gender.FEMALE, 8000.0));
+        employeeRepository.createEmployee(new Employee(2, "Amy", 15, Gender.FEMALE, 7000.0));
+        employeeRepository.createEmployee(new Employee(3, "Micky", 19, Gender.MALE, 5000.0));
+        employeeRepository.createEmployee(new Employee(4, "Tony", 19, Gender.MALE, 4000.0));
+        employeeRepository.createEmployee(new Employee(5, "Jenny", 19, Gender.FEMALE, 5000.0));
+        employeeRepository.createEmployee(new Employee(6, "John", 19, Gender.MALE, 19.0));
     }
 
     @Test
