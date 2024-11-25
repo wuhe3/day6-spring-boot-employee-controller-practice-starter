@@ -38,4 +38,15 @@ public class EmployeeController {
         return employeeRepository.createEmployee(employee);
     }
 
+    @PutMapping
+    public Employee updateEmployee(@RequestBody Employee employee) {
+        return employeeRepository.updateEmployee(employee);
+    }
+
+
+
+
+
+
+
 }

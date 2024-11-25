@@ -41,4 +41,17 @@ public class EmployeeRepository {
         return employee;
     }
 
+    public Employee updateEmployee(Employee employee) {
+        return employeeList.stream()
+                .filter(employee1 -> employee1.getId() == employee.getId())
+                .findFirst()
+                .map(employee1 -> {
+                    employee1.setName(employee.getName());
+                    employee1.setAge(employee.getAge());
+                    employee1.setGender(employee.getGender());
+                    employee1.setSalary(employee.getSalary());
+                    return employee1;
+                })
+                .orElseThrow();
+    }
 }
