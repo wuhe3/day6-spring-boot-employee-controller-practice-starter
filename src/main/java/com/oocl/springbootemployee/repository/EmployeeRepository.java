@@ -54,4 +54,8 @@ public class EmployeeRepository {
                 })
                 .orElseThrow();
     }
+
+    public void deleteEmployee(int id) {
+        employeeList.removeIf(employee -> employee.getId() == id);
+    }
 }
