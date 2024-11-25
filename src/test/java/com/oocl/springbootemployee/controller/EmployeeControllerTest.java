@@ -15,9 +15,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -137,6 +139,7 @@ class EmployeeControllerTest {
         // When & Then
         client.perform(MockMvcRequestBuilders.delete("/employees/" + id))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
+        assertThrows(RuntimeException.class, () -> employeeRepository.getById(id));
     }
 
 //    @Test
