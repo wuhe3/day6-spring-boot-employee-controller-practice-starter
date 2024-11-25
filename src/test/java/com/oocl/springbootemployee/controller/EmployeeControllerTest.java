@@ -25,6 +25,9 @@ class EmployeeControllerTest {
     private MockMvc client;
 
     @Autowired
+    private JacksonTester<Employee> employeeJacksonTester;
+
+    @Autowired
     private JacksonTester<List<Employee>> employeesListJacksonTester;
 
     @Autowired
@@ -42,6 +45,22 @@ class EmployeeControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(3)))
                 .andExpect(MockMvcResultMatchers.content().json(employeeListJson));
+
+    }
+
+    @Test
+    void should_return_employee_when_get_employee_by_id() throws Exception {
+        // Given
+        final Employee employee = employeeRepository.getById(3);
+        int id = employee.getId();
+
+        String employeeJson = employeeJacksonTester.write(employee).getJson();
+
+        // When & Then
+        client.perform(MockMvcRequestBuilders.get("/employees/" + id))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id));
+                .andExpect(MockMvcResultMatchers.content().json(employeeJson));
 
     }
 
