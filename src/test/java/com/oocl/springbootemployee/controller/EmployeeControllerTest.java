@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -116,13 +115,13 @@ class EmployeeControllerTest {
     void should_update_employee_when_update_employee() throws Exception {
         // Given
         int id = 1;
-        Employee employee = employeeRepository.getById(id);
-        employee.setAge(18);
-        employee.setSalary(7000.0);
-        String employeeJson = employeeJacksonTester.write(employee).getJson();
+        String employeeJson = "{\n" +
+                "    \"age\": 20,\n" +
+                "    \"salary\": 61659.0\n" +
+                "}";
 
-        // When & Then
-        client.perform(MockMvcRequestBuilders.put("/employees")
+        //When & Then
+        client.perform(MockMvcRequestBuilders.put("/employees/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(employeeJson)
                 )
